@@ -1,6 +1,6 @@
 en:
   books:
-    defaults:
+    common:
       to_index: 'Back to books' 
       to_new: 'New book'
       to_show: 'Show this book'
