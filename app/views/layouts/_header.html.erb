@@ -1,0 +1,4 @@
+<nav class="page-nav">
+  <%= link_to t('views.common.edit', name: User.model_name.human.downcase),  edit_user_registration_path %>
+  <%= link_to t('devise.sessions.delete.sign_out'),  destroy_user_session_path, data: { turbo_method: :delete } %>
+</nav>
