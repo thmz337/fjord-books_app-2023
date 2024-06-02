@@ -180,6 +180,20 @@ Index
   flex-direction: column;
 }
 
+.index-items-vertical {
+  font-size: var(--global-fz-sm);
+  line-height: var(--global-lh);
+  margin-bottom: var(--nav-mt);
+  width: 360px;
+}
+
+.index-item-vertical {
+  border: solid var(--global-bw) var(--global-bc);
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: var(--global-br);
+}
+
 .index-item div[id] {
   flex: 1;
 }

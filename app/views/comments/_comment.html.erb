@@ -1,0 +1,22 @@
+<div id="<%= dom_id comment %>">
+  <p>
+    <strong><%= Comment.human_attribute_name(:name) %>:</strong>
+    <%= comment.name %>
+  </p>
+
+  <p>
+    <strong><%= Comment.human_attribute_name(:body) %>:</strong>
+    <%= comment.body %>
+  </p>
+
+  <p>
+    <strong><%= Comment.human_attribute_name(:created_at) %>:</strong>
+    <%= comment.created_at %>
+  </p>
+
+  <% if current_user.id == comment.user_id %>
+  <p>
+    <%= button_to t('views.common.destroy', name: Comment.model_name.human.downcase), polymorphic_path([commentable, comment]) ,method: :delete %>
+  </p>
+  <% end %>
+</div>
