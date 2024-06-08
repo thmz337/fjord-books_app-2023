@@ -1,0 +1,14 @@
+en:
+  books:
+    common:
+      to_index: 'Back to books' 
+      to_new: 'New book'
+      to_show: 'Show this book'
+      to_edit: 'Edit this book'
+      to_delete: 'Destroy this book'
+    index:
+      title: 'Books'
+    new:
+      title: 'New Book'
+    edit:
+      title: 'Editing book'

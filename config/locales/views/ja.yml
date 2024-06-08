@@ -1,0 +1,14 @@
+ja:
+  books:
+    links:
+      to_index: 本の一覧へ
+      to_new: 新規作成
+      to_show: 本の詳細
+      to_edit: 本の編集
+      to_delete: 本の削除
+    index:
+      title: 本の一覧
+    new:
+      title: 新しい本の登録
+    edit:
+      title: 本の編集
