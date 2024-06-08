@@ -152,7 +152,7 @@ page-nav
   --nav-fz: var(--global-fz-md);
   --nav-mt: 24px;
   font-size: var(--nav-fz);
-  margin-top: var(--nav-mt);
+  margin: var(--nav-mt) 0;
 }
 
 .page-nav .button_to {
