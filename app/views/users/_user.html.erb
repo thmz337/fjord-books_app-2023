@@ -1,6 +1,11 @@
 <div id="<%= dom_id user %>">
 
   <p>
+    <strong><%= User.human_attribute_name(:profile_picture) %>:</strong>
+    <%= image_tag user.profile_picture.variant(:thumb) if user.profile_picture.attached? %>
+  </p>
+
+  <p>
     <strong><%= User.human_attribute_name(:email) %>:</strong>
     <%= user.email %>
   </p>
