@@ -6,23 +6,17 @@ class CommentsController < ApplicationController
 
   # POST #{commenatble}/:commentable_id/comments or #{commentable}/:commentable_id/comments.json
   def create
-    params_for_comment_creation = comment_params.to_h
-    params_for_comment_creation[:user_id] = current_user.id
-    params_for_comment_creation[:name] = current_user.email if params_for_comment_creation[:name].empty?
-    @comment = @commentable.comments.create(params_for_comment_creation)
+    @comment = @commentable.comments.create(comment_params)
+    @comment.user = current_user
 
     commentable_class_name = @commentable.class.name.downcase
     # for show method of commentable
     instance_variable_set("@#{commentable_class_name}".to_sym, @commentable)
 
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to report_url(@commentable), notice: t('controllers.common.notice_create', name: Comment.model_name.human) }
-        format.json { render :show, status: :created, location: @commentable }
-      else
-        format.html { render 'reports/show', status: :unprocessable_entity }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if @comment.save
+      redirect_to report_url(@commentable), notice: t('controllers.common.notice_create', name: Comment.model_name.human)
+    else
+      render 'reports/show', status: :unprocessable_entity
     end
   end
 
@@ -58,6 +52,6 @@ class CommentsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def comment_params
-    params.require(:comment).permit(:name, :body)
+    params.require(:comment).permit(:title, :body)
   end
 end
