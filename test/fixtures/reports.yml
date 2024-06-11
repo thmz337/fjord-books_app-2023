@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  user: one
-  title: MyString
-  content: MyText
+first:
+  user: alice
+  title: 初めての日報
+  content: 緊張しました
+  created_at: 2023-04-23 23:34:57.010023
 
-two:
-  user: two
-  title: MyString
-  content: MyText
+second:
+  user: bob
+  title: 久しぶりの日報
+  content: 2回目の日報の記入です
+  created_at: 2024-06-11 09:57:39.890045
