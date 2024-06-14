@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class Reports::CommentsController < CommentsController
-  before_action :set_commentable, only: %i[create destroy]
+  before_action :set_commentable, only: %i[create]
+  before_action only: %i[destroy] do
+    set_commentable
+    get_comment(@commentable)
+  end
 
   # POST #{commenatble}/:commentable_id/comments or #{commentable}/:commentable_id/comments.json
   def create

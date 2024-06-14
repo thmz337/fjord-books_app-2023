@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[destroy]
-
   def create
     @comment = @commentable.comments.create(comment_params)
     @comment.user = current_user
@@ -14,8 +12,8 @@ class CommentsController < ApplicationController
     @comment.destroy!
   end
 
-  def set_comment
-    @comment = Comment.find(params[:id])
+  def get_comment(commentable)
+    @comment = commentable.comments.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
