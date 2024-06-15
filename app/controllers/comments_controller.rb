@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  def create
-    commentable_class_name = @commentable.class.name.downcase
+  def create(loaded_view)
     @comment = @commentable.comments.create(comment_params)
     @comment.user = current_user
 
     if @comment.save
       redirect_to @commentable, notice: t('controllers.common.notice_create', name: Comment.model_name.human)
     else
-      render "#{commentable_class_name}s/show", status: :unprocessable_entity
+      render loaded_view, status: :unprocessable_entity
     end
   end
 
@@ -24,7 +23,7 @@ class CommentsController < ApplicationController
   def set_comment
     @comment = @commentable.comments.find(params[:id])
   end
-
+  
   # Only allow a list of trusted parameters through.
   def comment_params
     params.require(:comment).permit(:body)
