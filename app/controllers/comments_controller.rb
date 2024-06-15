@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    return unless @comment.user_id == current_user.id
+    redirect_to @commentable, alert: t('controllers.common.alert_destroy', name: Comment.model_name.human) unless @comment.user_id == current_user.id
 
     @comment.destroy!
 
