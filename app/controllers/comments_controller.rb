@@ -2,18 +2,27 @@
 
 class CommentsController < ApplicationController
   def create
+    commentable_class_name = @commentable.class.name.downcase
     @comment = @commentable.comments.create(comment_params)
     @comment.user = current_user
+
+    if @comment.save
+      redirect_to @commentable, notice: t('controllers.common.notice_create', name: Comment.model_name.human)
+    else
+      render "#{commentable_class_name}s/show", status: :unprocessable_entity
+    end
   end
 
   def destroy
     return unless @comment.user_id == current_user.id
 
     @comment.destroy!
+
+    redirect_to @commentable, notice: t('controllers.common.notice_destroy', name: Comment.model_name.human)
   end
 
-  def get_comment(commentable)
-    @comment = commentable.comments.find(params[:id])
+  def set_comment
+    @comment = @commentable.comments.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
