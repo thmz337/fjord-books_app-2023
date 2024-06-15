@@ -3,14 +3,14 @@
   <% if (reports_mentioning.presence) %>
     <ul>
       <% reports_mentioning.each do |report_mentioning| %>
-        <li>
-          <small>
-            <%= link_to report_mentioning.title, report_path(report_mentioning.id) %> <%= t('.mentioned_from') %>
-          </small>
-        </li>
+      <li>
+	<small>
+          <%= link_to report_mentioning.title, report_path(report_mentioning.id) %> <%= t('.mentioned_from') %>
+	</small>
+      </li>
       <% end %>
     </ul>
-    <% else %>
-      (<%= t('.no_mentions') %>)
-    <% end %>
+  <% else %>
+    (<%= t('.no_mentions') %>)
+  <% end %>
 </div>

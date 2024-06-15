@@ -22,25 +22,30 @@ class ReportsController < ApplicationController
   def create
     @report = current_user.reports.new(report_params)
 
-    if @report.save
-      mention_registration(@report)
-      redirect_to @report, notice: t('controllers.common.notice_create', name: Report.model_name.human)
-    else
-      render :new, status: :unprocessable_entity
+    Report.transaction do
+      @report.save!
+      @report.mention_registration
     end
+    redirect_to @report, notice: t('controllers.common.notice_create', name: Report.model_name.human)
+    
+  rescue
+    render :new, status: :unprocessable_entity
+    
   end
 
   def update
-    if @report.update(report_params)
-      mention_registration(@report)
-      redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
-    else
-      render :edit, status: :unprocessable_entity
+    Report.transaction do
+      @report.update!(report_params)
+      @report.mention_registration
     end
+    redirect_to @report, notice: t('controllers.common.notice_update', name: Report.model_name.human)
+    
+  rescue
+    render :edit, status: :unprocessable_entity
   end
 
   def destroy
-    @report.destroy
+    @report.destroy!
 
     redirect_to reports_url, notice: t('controllers.common.notice_destroy', name: Report.model_name.human)
   end
@@ -53,17 +58,5 @@ class ReportsController < ApplicationController
 
   def report_params
     params.require(:report).permit(:title, :content)
-  end
-
-  def mention_registration(report)
-    report_mentioning_ids = report.content.scan(%r{http://localhost:3000/reports/(\d+)}).flatten.uniq.map(&:to_i)
-
-    exist_report_mentioning_ids = []
-
-    report_mentioning_ids.each do |report_mentioning_id|
-      exist_report_mentioning_ids << report_mentioning_id if Report.where(id: report_mentioning_id).exists? && report.id != report_mentioning_id
-    end
-
-    report.mentioning_report_ids = exist_report_mentioning_ids
   end
 end
