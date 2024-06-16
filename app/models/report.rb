@@ -23,9 +23,6 @@ class Report < ApplicationRecord
 
   def mention_registration
     report_ids_from_content = content.scan(%r{http://localhost:3000/reports/(\d+)}).flatten.uniq.map(&:to_i)
-
-    Report.transaction do
-      self.mentioning_report_ids = Report.where(id: report_ids_from_content).where.not(id:).pluck(:id)
-    end
+    self.mentioning_report_ids = Report.where(id: report_ids_from_content).where.not(id:).pluck(:id)
   end
 end
