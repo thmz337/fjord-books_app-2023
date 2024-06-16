@@ -9,7 +9,9 @@ class BooksController < ApplicationController
   end
 
   # GET /books/1 or /books/1.json
-  def show; end
+  def show
+    @comment = Comment.new
+  end
 
   # GET /books/new
   def new
@@ -49,7 +51,7 @@ class BooksController < ApplicationController
 
   # DELETE /books/1 or /books/1.json
   def destroy
-    @book.destroy
+    @book.destroy!
 
     respond_to do |format|
       format.html { redirect_to books_url, notice: t('controllers.common.notice_destroy', name: Book.model_name.human) }
