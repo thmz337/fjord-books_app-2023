@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  def create(loaded_view)
+  before_action :set_commentable
+  before_action :set_comment, only: %i[destroy]
+
+  def create
     @comment = @commentable.comments.create(comment_params)
     @comment.user = current_user
 
@@ -23,7 +26,7 @@ class CommentsController < ApplicationController
   def set_comment
     @comment = @commentable.comments.find(params[:id])
   end
-  
+
   # Only allow a list of trusted parameters through.
   def comment_params
     params.require(:comment).permit(:body)
