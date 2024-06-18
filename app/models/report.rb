@@ -25,4 +25,20 @@ class Report < ApplicationRecord
     report_ids_from_content = content.scan(%r{http://localhost:3000/reports/(\d+)}).flatten.uniq.map(&:to_i)
     self.mentioning_report_ids = Report.where(id: report_ids_from_content).where.not(id:).pluck(:id)
   end
+
+  def save_with_mention_registration
+    Report.transaction do
+      return false unless save
+
+      mention_registration ? true : (raise ActiveRecord::Rollback)
+    end
+  end
+
+  def update_with_mention_registration
+    Report.transaction do
+      return false unless update
+
+      mention_registration ? true : (raise ActiveRecord::Rollback)
+    end
+  end
 end
