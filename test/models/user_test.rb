@@ -5,6 +5,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   test 'only email registered' do
     user = users(:alice)
+    user.name = ''
     assert 'alice@example.com', user.name_or_email
   end
 
