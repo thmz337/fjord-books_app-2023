@@ -216,6 +216,11 @@ ja:
       create: コメントする
       delete: 削除
       no_comments: コメントはまだありません
+  reports:
+    mentions:
+      mention: メンション
+      mentioned_from: からメンションされています
+      no_mentions: まだメンションされていません
   # devise-i18n-viewsをオーバーライド
   devise:
     registrations:
