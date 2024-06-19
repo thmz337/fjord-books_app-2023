@@ -28,17 +28,21 @@ class Report < ApplicationRecord
 
   def save_with_mention_registration
     Report.transaction do
-      return false unless save
-
-      mention_registration ? true : (raise ActiveRecord::Rollback)
+      if save
+        mention_registration
+      else
+        false
+      end
     end
   end
 
   def update_with_mention_registration
     Report.transaction do
-      return false unless update
-
-      mention_registration ? true : (raise ActiveRecord::Rollback)
+      if update
+        mention_registration
+      else
+        false
+      end
     end
   end
 end
